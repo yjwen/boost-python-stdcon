@@ -1,0 +1,72 @@
+#+TITLE: boost-python-stdcon
+#+SUBTITLE: Automatic Python Wrapper of ~std~ Containers as Function Arguments and Return Values
+#+AUTHOR: Yujie Wen
+#+Email: yjwen.ty@qq.com
+#+OPTIONS: toc:nil
+
+* Introduction
+  Often we use Python to collect some data and pass them to C++ engine
+  for further process. Data in Python is organized in Python builtin
+  data structures (list, dict and etc). C++ interface functions accept
+  some ~std~ containers as arguments. To bridge such data path from
+  Python to C++ by using ~boost::python~, we should either wrap the
+  required ~std~ containers as Python extension class or create
+  wrapper functions that accept Python objects as arguments and in
+  that wapper function prepare the ~std~ containers with data
+  extracted from the Python objects. Either way will become boilplate
+  and tedious coding jobs as the C++ interface grows.
+
+  ~boost-python-stdcon~ is a header-only library that eliminates the
+  requirement of such wrapper function or wrapper class. It embeds the
+  automatic conversion code into ~boost::python~ namespace to enable
+  ~boost::python~ to recognize function arguments and results of ~std~
+  container types and to do the conversion in its own wrapper
+  functions.
+
+  Here is a simple example. Let's expose the below simple C++ function
+  to Python so that it can accepts data organized in a Python list.
+  #+begin_src c++
+int sum(std::vector<int> const &vec);
+  #+end_src
+
+  With the stock ~boost::python~ library, we should create a wrapper
+  function that accepts one Python list object and prepare the
+  ~vector~ arguments in that wrapper function manually.
+  #+begin_src c++
+    #include <boost/python/extract.hpp>
+
+    int pySum(PyObject* obj)
+    {
+      std::vector<int> vec;
+      // Assuming obj is a list. Exact int values from obj and prepapre
+      // vec.
+      vec.reserve(PyList_Size(obj));
+      for (Py_ssize_t i = 0; i < PyList_Size(obj); ++i) {
+        vec.push_back(boost::python::extract<int>(PyList_GetItem(obj, i)));
+      }
+      return sum(vec); // Call sum
+    }
+  #+end_src
+
+  And finally, register the wrapper function to Python.
+  #+begin_src c++
+    #include <boost/python.hpp>
+
+    BOOST_PYTHON_MODULE(foo) {
+      boost::python::def("sum", &pySum);
+    }
+  #+end_src
+
+  But with ~boost-python-stdcon~, the wrapper function is no longer
+  required and ~sum~ can be registered to Python directly. All is done
+  by including the proper header file /vector_arg.hpp/.
+  #+begin_src c++
+    #include <vector_arg.hpp> // Provided by boost-python-stdcon
+
+    BOOST_PYTHON_MODULE(foo) {
+      boost::python::def("sum", &sum);
+    }
+  #+end_src
+
+
+
