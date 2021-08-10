@@ -1,10 +1,14 @@
 import stdcon as c
 
-l123 = [1, 2, 3]
+l = [1, 2, 3]
 assert c.sum([]) == 0
-assert c.sum([1, 2, 3]) == 6
-assert c.sum_rvalue([1, 2, 3]) == 6
-assert c.sum_list([4, 5, 6]) == 15
-assert c.sum_list_rvalue([4, 5, 6]) == 15
+assert c.sum(l) == 6
+assert c.sum_rvalue(l) == 6
+assert c.sum_list(l) == 6
+assert c.sum_list_rvalue(l) == 6
+d = {0: 0.5, 1: 1.5}
+assert c.map_ref(d, 0, 0) == 0.5
+assert c.map_ref(d, 3, 2) == 2
+assert c.map_ref_rvalue(d, 1, 0) == 1.5
 
 print("Passed")
