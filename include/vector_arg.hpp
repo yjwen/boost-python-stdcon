@@ -6,38 +6,38 @@
 
 namespace boost::python {
   namespace detail {
-    template<typename T>
-    struct reserve<std::vector<T>>
+    template<typename T, typename A>
+    struct reserve<std::vector<T, A>>
     {
-      static void func(std::vector<T> &v, size_t sz) {
+      static void func(std::vector<T, A> &v, size_t sz) {
         v.reserve(sz);
       }
     };
   }
 
   // Specialization of arg_from_python
-  template<typename T>
-  struct arg_from_python<std::vector<T> const&> :
-      detail::sequencial_copied_from_python<std::vector<T>>
+  template<typename T, typename A>
+  struct arg_from_python<std::vector<T, A> const&> :
+    detail::sequencial_copied_from_python<std::vector<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::vector<T>> base_type;
+    typedef detail::sequencial_copied_from_python<std::vector<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
-  template<typename T>
-  struct arg_from_python<std::vector<T> &&> :
-    detail::sequencial_copied_from_python<std::vector<T>>
+  template<typename T, typename A>
+  struct arg_from_python<std::vector<T, A> &&> :
+    detail::sequencial_copied_from_python<std::vector<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::vector<T>> base_type;
+    typedef detail::sequencial_copied_from_python<std::vector<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   namespace converter {
-    template<typename T>
-    struct expected_pytype_for_arg<std::vector<T> const&> : expecting_pylist {};
+    template<typename T, typename A>
+    struct expected_pytype_for_arg<std::vector<T, A> const&> : expecting_pylist {};
 
-    template<typename T>
-    struct expected_pytype_for_arg<std::vector<T>&&> : expecting_pylist {};
+    template<typename T, typename A>
+    struct expected_pytype_for_arg<std::vector<T, A>&&> : expecting_pylist {};
   }    
 }
 
