@@ -1,7 +1,7 @@
-#ifndef __BOOST_PYTHON_STDCON_SEQUENCE_ARG_INCLUDED__
-#define __BOOST_PYTHON_STDCON_SEQUENCE_ARG_INCLUDED__
+#ifndef __BOOST_PYTHON_STDCON_SEQUENCIAL_ARG_INCLUDED__
+#define __BOOST_PYTHON_STDCON_SEQUENCIAL_ARG_INCLUDED__
 #include <boost/python.hpp>
-#include <list>
+#include <Python.h>
 
 namespace boost::python {
   namespace detail {
@@ -13,16 +13,16 @@ namespace boost::python {
 
 
     template<typename C>
-    struct sequence_copied_from_python
+    struct sequencial_copied_from_python
     {
       typedef C result_type;
       typedef typename C::value_type value_type;
 
       typedef arg_from_python<value_type> element_converter_type;
 
-      sequence_copied_from_python(PyObject* pyobj) : m_pyobj(pyobj) {}
+      sequencial_copied_from_python(PyObject* pyobj) : m_pyobj(pyobj) {}
       bool convertible() const {
-        // == true when m_pyobj is a python list and all its elements
+        // == true when m_pyobj is a Python list and all its elements
         // are convertible to value_type
         if (!PyList_Check(m_pyobj))
           return false;
