@@ -1,34 +1,32 @@
 #include <vector_arg.hpp>
 #include <list_arg.hpp>
 #include <map_arg.hpp>
+#include <type_traits>
 
 using namespace std;
 namespace py = boost::python;
-int sum(vector<int> const &vec)
+
+template<typename T>
+struct remove_ref_and_const
 {
-  int i = 0;
-  for (int v : vec) i += v;
+  typedef typename remove_const<typename remove_reference<T>::type>::type type;
+};
+
+template<typename T>
+typename remove_ref_and_const<T>::type::value_type
+sum(T seq)
+{
+  typedef typename remove_ref_and_const<T>::type::value_type value_type;
+  value_type i = 0;
+  for (int v : seq) i += v;
   return i;
 }
 
-int sum_rvalue(vector<int> &&vec)
-{
-  return sum(vec);
-}
-
-int sum_list(list<int> const &l)
-{
-  int i = 0;
-  for (int v : l) i += v;
-  return i;
-}
-
-int sum_list_rvalue(list<int> &&l)
-{
-  return sum_list(l);
-}
-
-float map_ref(map<int, float> const &m, int k, float v)
+template<typename M>
+typename remove_ref_and_const<M>::type::mapped_type
+map_find(M m,
+         typename remove_ref_and_const<M>::type::key_type k,
+         typename remove_ref_and_const<M>::type::mapped_type v)
 {
   auto it = m.find(k);
   if (it != m.end())
@@ -37,16 +35,19 @@ float map_ref(map<int, float> const &m, int k, float v)
     return v;
 }
 
-float map_ref_rvalue(map<int, float> &&m, int k, float v)
-{
-  return map_ref(m, k, v);
-}
-
 BOOST_PYTHON_MODULE(stdcon) {
-  py::def("sum", &sum);
-  py::def("sum_rvalue", &sum_rvalue);
-  py::def("sum_list", &sum_list);
-  py::def("sum_list_rvalue", &sum_list_rvalue);
-  py::def("map_ref", &map_ref);
-  py::def("map_ref_rvalue", &map_ref_rvalue);
+  typedef vector<int> ivector;
+  py::def("vsum", &sum<ivector>);
+  py::def("vsum_rvalue", &sum<ivector&&>);
+  py::def("vsum_cref", &sum<ivector const&>);
+
+  typedef list<int> ilist;
+  py::def("lsum", &sum<ilist>);
+  py::def("lsum_rvalue", &sum<ilist&&>);
+  py::def("lsum_cref", &sum<ilist const&>);
+
+  typedef map<int, float> ifmap;
+  py::def("map_find", &map_find<ifmap>);
+  py::def("map_find_cref", &map_find<ifmap const &>);
+  py::def("map_find_rvalue", &map_find<ifmap&&>);
 }
