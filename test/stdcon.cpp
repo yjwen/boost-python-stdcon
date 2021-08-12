@@ -1,6 +1,7 @@
 #include <vector_arg.hpp>
 #include <list_arg.hpp>
 #include <map_arg.hpp>
+#include <unordered_map_arg.hpp>
 #include <type_traits>
 
 using namespace std;
@@ -50,4 +51,9 @@ BOOST_PYTHON_MODULE(stdcon) {
   py::def("map_find", &map_find<ifmap>);
   py::def("map_find_cref", &map_find<ifmap const &>);
   py::def("map_find_rvalue", &map_find<ifmap&&>);
+
+  typedef unordered_map<int, float> ifhashmap;
+  py::def("hashmap_find", &map_find<ifhashmap>);
+  py::def("hashmap_find_cref", &map_find<ifhashmap const &>);
+  py::def("hashmap_find_rvalue", &map_find<ifhashmap&&>);
 }

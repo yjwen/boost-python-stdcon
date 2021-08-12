@@ -77,11 +77,11 @@
 
 * Supported Containers
 
-  | C++ Container   | Python Container | Header file             | Status   |
-  |-----------------+------------------+-------------------------+----------|
-  | ~vector~        | List             | ~vector_arg.hpp~        | Done     |
-  | ~list~          | List             | ~list_arg.hpp~          | Done     |
-  | ~map~           | Dict             | ~map_arg.hpp~           | Done     |
-  | ~unordered_map~ | Dict             | ~unordered_map_arg.hpp~ | Planning |
-  | And more        |                  |                         |          |
+  | C++ Container   | Python Container | Header file             | Status |
+  |-----------------+------------------+-------------------------+--------|
+  | ~vector~        | List             | ~vector_arg.hpp~        | Done   |
+  | ~list~          | List             | ~list_arg.hpp~          | Done   |
+  | ~map~           | Dict             | ~map_arg.hpp~           | Done   |
+  | ~unordered_map~ | Dict             | ~unordered_map_arg.hpp~ | Done   |
+  | And more        |                  |                         |        |
   
