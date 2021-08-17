@@ -2,6 +2,7 @@
 #include <list_arg.hpp>
 #include <map_arg.hpp>
 #include <unordered_map_arg.hpp>
+#include <set_arg.hpp>
 #include <type_traits>
 
 using namespace std;
@@ -36,6 +37,14 @@ map_find(M m,
     return v;
 }
 
+template<typename S>
+bool
+element_of(S s,
+           typename remove_ref_and_const<S>::type::value_type k)
+{
+  return s.find(k) != s.end();
+}
+
 BOOST_PYTHON_MODULE(stdcon) {
   typedef vector<int> ivector;
   py::def("vsum", &sum<ivector>);
@@ -56,4 +65,9 @@ BOOST_PYTHON_MODULE(stdcon) {
   py::def("hashmap_find", &map_find<ifhashmap>);
   py::def("hashmap_find_cref", &map_find<ifhashmap const &>);
   py::def("hashmap_find_rvalue", &map_find<ifhashmap&&>);
+
+  typedef set<int> iset;
+  py::def("set_element_of", &element_of<iset>);
+  py::def("set_cref_element_of", &element_of<iset const&>);
+  py::def("set_rvalue_element_of", &element_of<iset &&>);
 }

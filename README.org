@@ -68,7 +68,7 @@
 
 * Usage
 
-  This library is head-only. Download the code package and unpack
+  This library is header-only. Download the code package and unpack
   it to somewhere in your local directory. Add the /include/ directory
   to your C++ compiler's include file search path. Then add the proper
   header file to enable ~boost::python~ for specific container
@@ -77,11 +77,10 @@
 
 * Supported Containers
 
-  | C++ Container   | Python Container | Header file             | Status |
-  |-----------------+------------------+-------------------------+--------|
-  | ~vector~        | List             | ~vector_arg.hpp~        | Done   |
-  | ~list~          | List             | ~list_arg.hpp~          | Done   |
-  | ~map~           | Dict             | ~map_arg.hpp~           | Done   |
-  | ~unordered_map~ | Dict             | ~unordered_map_arg.hpp~ | Done   |
-  | And more        |                  |                         |        |
-  
+  | C++ Container   | Python Container     | Header file             |
+  |-----------------+----------------------+-------------------------|
+  | ~vector~        | ~list~               | ~vector_arg.hpp~        |
+  | ~list~          | ~list~               | ~list_arg.hpp~          |
+  | ~map~           | ~dict~               | ~map_arg.hpp~           |
+  | ~unordered_map~ | ~dict~               | ~unordered_map_arg.hpp~ |
+  | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
