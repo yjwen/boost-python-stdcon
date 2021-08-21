@@ -24,4 +24,8 @@ assert c.set_element_of(s, 0) == True
 assert c.set_cref_element_of(fs, 4) == False
 assert c.set_rvalue_element_of(fs, 1) == True
 
+assert c.hashset_element_of(s, 0) == True
+assert c.hashset_cref_element_of(fs, 4) == False
+assert c.hashset_rvalue_element_of(fs, 1) == True
+
 print("Passed")

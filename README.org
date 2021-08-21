@@ -84,3 +84,4 @@
   | ~map~           | ~dict~               | ~map_arg.hpp~           |
   | ~unordered_map~ | ~dict~               | ~unordered_map_arg.hpp~ |
   | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
+  | ~unordered_set~ | ~set~ or ~frozenset~ | ~unordered_set_arg.hpp~ |

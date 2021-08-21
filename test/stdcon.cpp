@@ -3,6 +3,7 @@
 #include <map_arg.hpp>
 #include <unordered_map_arg.hpp>
 #include <set_arg.hpp>
+#include <unordered_set_arg.hpp>
 #include <type_traits>
 
 using namespace std;
@@ -70,4 +71,9 @@ BOOST_PYTHON_MODULE(stdcon) {
   py::def("set_element_of", &element_of<iset>);
   py::def("set_cref_element_of", &element_of<iset const&>);
   py::def("set_rvalue_element_of", &element_of<iset &&>);
+
+  typedef unordered_set<int> ihashset;
+  py::def("hashset_element_of", &element_of<ihashset>);
+  py::def("hashset_cref_element_of", &element_of<ihashset const &>);
+  py::def("hashset_rvalue_element_of", &element_of<ihashset &&>);
 }
