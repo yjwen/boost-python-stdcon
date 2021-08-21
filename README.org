@@ -81,6 +81,7 @@
   |-----------------+----------------------+-------------------------|
   | ~vector~        | ~list~               | ~vector_arg.hpp~        |
   | ~list~          | ~list~               | ~list_arg.hpp~          |
+  | ~forward_list~  | ~list~               | ~forward_list_arg.hpp~  |
   | ~map~           | ~dict~               | ~map_arg.hpp~           |
   | ~unordered_map~ | ~dict~               | ~unordered_map_arg.hpp~ |
   | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
