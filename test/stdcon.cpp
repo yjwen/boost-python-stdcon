@@ -1,5 +1,6 @@
 #include <vector_arg.hpp>
 #include <list_arg.hpp>
+#include <forward_list_arg.hpp>
 #include <map_arg.hpp>
 #include <unordered_map_arg.hpp>
 #include <set_arg.hpp>
@@ -17,11 +18,11 @@ struct remove_ref_and_const
 
 template<typename T>
 typename remove_ref_and_const<T>::type::value_type
-sum(T seq)
+pack(T seq)
 {
   typedef typename remove_ref_and_const<T>::type::value_type value_type;
   value_type i = 0;
-  for (int v : seq) i += v;
+  for (int v : seq) i = i * 10 + v;
   return i;
 }
 
@@ -48,14 +49,19 @@ element_of(S s,
 
 BOOST_PYTHON_MODULE(stdcon) {
   typedef vector<int> ivector;
-  py::def("vsum", &sum<ivector>);
-  py::def("vsum_rvalue", &sum<ivector&&>);
-  py::def("vsum_cref", &sum<ivector const&>);
+  py::def("vpack", &pack<ivector>);
+  py::def("vpack_rvalue", &pack<ivector&&>);
+  py::def("vpack_cref", &pack<ivector const&>);
 
   typedef list<int> ilist;
-  py::def("lsum", &sum<ilist>);
-  py::def("lsum_rvalue", &sum<ilist&&>);
-  py::def("lsum_cref", &sum<ilist const&>);
+  py::def("lpack", &pack<ilist>);
+  py::def("lpack_rvalue", &pack<ilist&&>);
+  py::def("lpack_cref", &pack<ilist const&>);
+
+  typedef forward_list<int> iforwardlist;
+  py::def("flpack", &pack<iforwardlist>);
+  py::def("flpack_rvalue", &pack<iforwardlist&&>);
+  py::def("flpack_cref", &pack<iforwardlist const&>);
 
   typedef map<int, float> ifmap;
   py::def("map_find", &map_find<ifmap>);

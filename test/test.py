@@ -1,13 +1,16 @@
 import stdcon as c
 
 l = [1, 2, 3]
-assert c.vsum([]) == 0
-assert c.vsum(l) == 6
-assert c.vsum_rvalue(l) == 6
-assert c.vsum_cref(l) == 6
-assert c.lsum(l) == 6
-assert c.lsum_rvalue(l) == 6
-assert c.lsum_cref(l) == 6
+assert c.vpack([]) == 0
+assert c.vpack(l) == 123
+assert c.vpack_rvalue(l) == 123
+assert c.vpack_cref(l) == 123
+assert c.lpack(l) == 123
+assert c.lpack_rvalue(l) == 123
+assert c.lpack_cref(l) == 123
+assert c.flpack(l) == 123
+assert c.flpack_rvalue(l) == 123
+assert c.flpack_cref(l) == 123
 
 d = {0: 0.5, 1: 1.5}
 assert c.map_find(d, 0, 0) == 0.5
