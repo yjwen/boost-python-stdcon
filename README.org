@@ -1,4 +1,4 @@
-#+TITLE: boost-python-stdcon: Automatic Python Wrapper of ~std~ Containers as Function Arguments and Return Values
+#+TITLE: boost-python-stdcon: Boost.Python Extension for Containers Automatic Conversion
 #+AUTHOR: Yujie Wen
 #+Email: yjwen.ty@qq.com
 #+OPTIONS: toc:nil
@@ -6,7 +6,7 @@
 * Introduction
   Often we use Python to collect some data and pass them to C++
   functions for further process. Data is organized in Python builtin
-  data structures (list, dict and etc), whill C++ functions accepts
+  data structures (list, dict and etc), while C++ functions accept
   some ~std~ containers as arguments. To bridge such data path from
   Python to C++ by using ~boost::python~, we should either expose the
   ~std~ containers as Python extension classes or create wrapper
@@ -19,7 +19,7 @@
   requirement of such wrapper function or wrapper class. It embeds the
   automatic conversion code into ~boost::python~ namespace to enable
   it to recognize function arguments and results of ~std~ container
-  types and do the conversion in its own wrapper functions.
+  types and to do the conversion in its own wrapper functions.
 
   Here is a simple example. Let's expose the below simple C++ function
   to Python so that it can accept data in a Python list.
@@ -72,12 +72,16 @@
   it to somewhere in your local directory. Add the /include/ directory
   to your C++ compiler's include file search path. Then add the proper
   header file to enable ~boost::python~ for specific container
-  types. Header file name and container support are listed in section
-  [[* Supported Containers]].
+  types.
 
-* Supported Containers
+* Argument Conversion
 
-  | C++ Container   | Python Container     | Header file             |
+  For converting python containers to C++ containers as function
+  arguments, please include the proper header file listed in the table
+  below.
+
+  | C++ Container   | Python Container     | Header file for         |
+  |                 |                      | argument conversion     |
   |-----------------+----------------------+-------------------------|
   | ~vector~        | ~list~               | ~vector_arg.hpp~        |
   | ~list~          | ~list~               | ~list_arg.hpp~          |
@@ -86,3 +90,25 @@
   | ~unordered_map~ | ~dict~               | ~unordered_map_arg.hpp~ |
   | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
   | ~unordered_set~ | ~set~ or ~frozenset~ | ~unordered_set_arg.hpp~ |
+
+** Restriction on Copy-Only Semantic
+
+   The argument conversion is done by creating temporary C++ container
+   object and COPYING each element of Python container to that
+   temporary C++ object. That means any change to the container itself
+   in C++ side is discarded and cannot affect the original Python
+   container. To reflect the Copy-Only Semantic, the conversion is
+   restricted to container value type, constant reference type and
+   rvalue reference type. The following code shows some example of
+   acceptable arguments.
+
+   #+begin_src c++
+     void foo_0(std::vector<int> v); // A vector value, convertible
+     void foo_1(std::vector<int> const &v); // Constant reference to a
+                                            // vector, convertible
+     void foo_2(std::vector<int> &&v); // Rvalue reference to a vector,
+                                       // convertible
+
+     void foo_3(std::vector<int> &v); // Reference to a vector, NOT
+                                      // convertible
+   #+end_src
