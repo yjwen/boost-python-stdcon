@@ -90,6 +90,7 @@
   | ~unordered_map~ | ~dict~               | ~unordered_map_arg.hpp~ |
   | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
   | ~unordered_set~ | ~set~ or ~frozenset~ | ~unordered_set_arg.hpp~ |
+  | ~pair~          | ~tuple~ of size 2    | ~pair_arg.hpp~          |
 
 ** Restriction on Copy-Only Semantic
 

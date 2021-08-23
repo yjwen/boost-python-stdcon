@@ -31,4 +31,6 @@ assert c.hashset_element_of(s, 0) == True
 assert c.hashset_cref_element_of(fs, 4) == False
 assert c.hashset_rvalue_element_of(fs, 1) == True
 
+assert c.icpair_equal0((1, 'c'), (1, 'c')) == True
+assert c.icpair_equal1((1, 'c'), (2, 'b')) == False
 print("Passed")

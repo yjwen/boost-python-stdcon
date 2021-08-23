@@ -5,6 +5,7 @@
 #include <unordered_map_arg.hpp>
 #include <set_arg.hpp>
 #include <unordered_set_arg.hpp>
+#include <pair_arg.hpp>
 #include <type_traits>
 
 using namespace std;
@@ -47,6 +48,13 @@ element_of(S s,
   return s.find(k) != s.end();
 }
 
+template<typename P0, typename P1>
+bool
+pair_equal(P0 p0, P1 p1)
+{
+  return (p0.first == p1.first && p0.second == p1.second);
+}
+
 BOOST_PYTHON_MODULE(stdcon) {
   typedef vector<int> ivector;
   py::def("vpack", &pack<ivector>);
@@ -82,4 +90,8 @@ BOOST_PYTHON_MODULE(stdcon) {
   py::def("hashset_element_of", &element_of<ihashset>);
   py::def("hashset_cref_element_of", &element_of<ihashset const &>);
   py::def("hashset_rvalue_element_of", &element_of<ihashset &&>);
+
+  typedef pair<int, char> icpair;
+  py::def("icpair_equal0", &pair_equal<icpair, icpair const&>);
+  py::def("icpair_equal1", &pair_equal<icpair &&, icpair const&>);
 }
