@@ -37,4 +37,10 @@ assert c.icpair_equal1((1, 'c'), (2, 'b')) == False
 assert c.tuple1_get0((1,)) == 1
 assert c.tuple2_get1((1, 'c')) == 'c'
 assert c.tuple3_get2((1, 'c', 'foo')) == 'foo'
+
+assert c.is_none(1) == False
+assert c.is_none_rvalue(None) == True
+assert c.is_none_cref(2) == False
+
 print("Passed")
+
