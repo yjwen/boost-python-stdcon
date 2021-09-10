@@ -94,4 +94,7 @@ BOOST_PYTHON_MODULE(stdcon) {
   typedef pair<int, char> icpair;
   py::def("icpair_equal0", &pair_equal<icpair, icpair const&>);
   py::def("icpair_equal1", &pair_equal<icpair &&, icpair const&>);
+
+  void def_tuple();
+  def_tuple();
 }

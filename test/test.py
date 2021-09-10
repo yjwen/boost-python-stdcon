@@ -33,4 +33,8 @@ assert c.hashset_rvalue_element_of(fs, 1) == True
 
 assert c.icpair_equal0((1, 'c'), (1, 'c')) == True
 assert c.icpair_equal1((1, 'c'), (2, 'b')) == False
+
+assert c.tuple1_get0((1,)) == 1
+assert c.tuple2_get1((1, 'c')) == 'c'
+assert c.tuple3_get2((1, 'c', 'foo')) == 'foo'
 print("Passed")

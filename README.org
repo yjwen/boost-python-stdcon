@@ -7,19 +7,21 @@
   Often we use Python to collect some data and pass them to C++
   functions for further process. Data is organized in Python builtin
   data structures (list, dict and etc), while C++ functions accept
-  some ~std~ containers as arguments. To bridge such data path from
-  Python to C++ by using ~boost::python~, we should either expose the
-  ~std~ containers as Python extension classes or create wrapper
-  functions that accept Python objects as arguments and in those
-  wapper functions prepare the ~std~ containers with data extracted
-  from the Python objects. Either way will involve boilplate and
-  tedious coding jobs as the C++ interface grows.
+  some standard containers or data structure as arguments. To bridge
+  such data path from Python to C++ by using ~boost::python~, we
+  should either expose the C++ standard containers or data structures
+  as Python extension classes or create wrapper functions that accept
+  Python objects as arguments and in those wapper functions prepare
+  the ~std~ containers with data extracted from the Python
+  objects. Either way will involve boilplate and tedious coding jobs
+  as the C++ interface grows.
 
-  ~boost-python-stdcon~ is a header-only library that eliminates the
-  requirement of such wrapper function or wrapper class. It embeds the
-  automatic conversion code into ~boost::python~ namespace to enable
-  it to recognize function arguments and results of ~std~ container
-  types and to do the conversion in its own wrapper functions.
+  ~boost-python-stdcon~ is a header-only library that automates the
+  conversion between C++ standard containers/data structures and their
+  Python counterparts. It embeds the automatic conversion code into
+  ~boost::python~ namespace to enable it to recognize function
+  arguments and results of ~std~ container types and to do the
+  conversion in ~boost::python~'s own wrapper functions.
 
   Here is a simple example. Let's expose the below simple C++ function
   to Python so that it can accept data in a Python list.
@@ -91,6 +93,7 @@
   | ~set~           | ~set~ or ~frozenset~ | ~set_arg.hpp~           |
   | ~unordered_set~ | ~set~ or ~frozenset~ | ~unordered_set_arg.hpp~ |
   | ~pair~          | ~tuple~ of size 2    | ~pair_arg.hpp~          |
+  | ~tuple~         | ~tuple~              | ~tuple_arg.hpp~         |
 
 ** Restriction on Copy-Only Semantic
 
