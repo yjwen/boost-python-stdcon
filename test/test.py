@@ -42,5 +42,8 @@ assert c.is_none(1) == False
 assert c.is_none_rvalue(None) == True
 assert c.is_none_cref(2) == False
 
+assert c.var_index(1) == 0
+assert c.var_index_cref('c') == 1
+assert c.var_index_rvalue(2.3) == 2
 print("Passed")
 

@@ -82,20 +82,20 @@
   arguments, please include the proper header file listed in the table
   below.
 
-  | C++ Container   | Python Container           | Header file for         |
-  |                 |                            | argument conversion     |
-  |-----------------+----------------------------+-------------------------|
-  | ~vector~        | ~list~                     | ~vector_arg.hpp~        |
-  | ~list~          | ~list~                     | ~list_arg.hpp~          |
-  | ~forward_list~  | ~list~                     | ~forward_list_arg.hpp~  |
-  | ~map~           | ~dict~                     | ~map_arg.hpp~           |
-  | ~unordered_map~ | ~dict~                     | ~unordered_map_arg.hpp~ |
-  | ~set~           | ~set~ or ~frozenset~       | ~set_arg.hpp~           |
-  | ~unordered_set~ | ~set~ or ~frozenset~       | ~unordered_set_arg.hpp~ |
-  | ~pair~          | ~tuple~ of size 2          | ~pair_arg.hpp~          |
-  | ~tuple~         | ~tuple~                    | ~tuple_arg.hpp~         |
-  | ~optional~      | Counterpart object or None | ~optional_arg.hpp~      |
-
+  | C++ Container   | Expecting                                             | Header file for         |
+  |                 | Python object type                                    | argument conversion     |
+  |-----------------+-------------------------------------------------------+-------------------------|
+  | ~vector~        | ~list~                                                | ~vector_arg.hpp~        |
+  | ~list~          | ~list~                                                | ~list_arg.hpp~          |
+  | ~forward_list~  | ~list~                                                | ~forward_list_arg.hpp~  |
+  | ~map~           | ~dict~                                                | ~map_arg.hpp~           |
+  | ~unordered_map~ | ~dict~                                                | ~unordered_map_arg.hpp~ |
+  | ~set~           | ~set~ or ~frozenset~                                  | ~set_arg.hpp~           |
+  | ~unordered_set~ | ~set~ or ~frozenset~                                  | ~unordered_set_arg.hpp~ |
+  | ~pair~          | ~tuple~ of size 2                                     | ~pair_arg.hpp~          |
+  | ~tuple~         | ~tuple~                                               | ~tuple_arg.hpp~         |
+  | ~optional~      | Counterpart types or None                             | ~optional_arg.hpp~      |
+  | ~variant~       | Counterpart of any of the variant's alternative types | ~variant_arg.hpp~       |
 ** Restriction on Copy-Only Semantic
 
    The argument conversion is done by creating temporary C++ container
