@@ -7,23 +7,23 @@
 namespace boost::python {
   template<typename Key, typename Hash, typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_set<Key, Hash, Eq, Alloc> const &> :
-    detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
+    stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename Key, typename Hash, typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_set<Key, Hash, Eq, Alloc> &&> :
-    detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
+    stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename Key, typename Hash, typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> :
-    detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
+    stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::unordered_set<Key, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

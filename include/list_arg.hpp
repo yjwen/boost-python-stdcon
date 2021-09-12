@@ -8,25 +8,25 @@ namespace boost::python {
   // Specialization of arg_from_python
   template<typename T, typename A>
   struct arg_from_python<std::list<T, A> const&> :
-    detail::sequencial_copied_from_python<std::list<T, A>>
+    stdcon::sequencial_copied_from_python<std::list<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::list<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename T, typename A>
   struct arg_from_python<std::list<T, A> &&> :
-    detail::sequencial_copied_from_python<std::list<T, A>>
+    stdcon::sequencial_copied_from_python<std::list<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::list<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename T, typename A>
   struct arg_from_python<std::list<T, A>> :
-    detail::sequencial_copied_from_python<std::list<T, A>>
+    stdcon::sequencial_copied_from_python<std::list<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::list<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

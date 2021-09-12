@@ -5,7 +5,7 @@
 #include <vector>
 
 namespace boost::python {
-  namespace detail {
+  namespace stdcon {
     template<typename T, typename A>
     struct reserve<std::vector<T, A>>
     {
@@ -18,25 +18,25 @@ namespace boost::python {
   // Specialization of arg_from_python
   template<typename T, typename A>
   struct arg_from_python<std::vector<T, A> const&> :
-    detail::sequencial_copied_from_python<std::vector<T, A>>
+    stdcon::sequencial_copied_from_python<std::vector<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::vector<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::vector<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename T, typename A>
   struct arg_from_python<std::vector<T, A> &&> :
-    detail::sequencial_copied_from_python<std::vector<T, A>>
+    stdcon::sequencial_copied_from_python<std::vector<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::vector<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::vector<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename T, typename A>
   struct arg_from_python<std::vector<T, A>> :
-    detail::sequencial_copied_from_python<std::vector<T, A>>
+    stdcon::sequencial_copied_from_python<std::vector<T, A>>
   {
-    typedef detail::sequencial_copied_from_python<std::vector<T, A>> base_type;
+    typedef stdcon::sequencial_copied_from_python<std::vector<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

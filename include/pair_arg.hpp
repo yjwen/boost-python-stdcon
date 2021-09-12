@@ -4,7 +4,7 @@
 #include <utility>
 
 namespace boost::python {
-  namespace detail {
+  namespace stdcon {
     template<typename P>
     struct pair_copied_from_python
     {
@@ -35,23 +35,23 @@ namespace boost::python {
 
   template<typename T0, typename T1>
   struct arg_from_python<std::pair<T0, T1> const&>:
-    detail::pair_copied_from_python<std::pair<T0, T1>>
+    stdcon::pair_copied_from_python<std::pair<T0, T1>>
   {
-    typedef detail::pair_copied_from_python<std::pair<T0, T1>> base_type;
+    typedef stdcon::pair_copied_from_python<std::pair<T0, T1>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename T0, typename T1>
   struct arg_from_python<std::pair<T0, T1> &&>:
-    detail::pair_copied_from_python<std::pair<T0, T1>>
+    stdcon::pair_copied_from_python<std::pair<T0, T1>>
   {
-    typedef detail::pair_copied_from_python<std::pair<T0, T1>> base_type;
+    typedef stdcon::pair_copied_from_python<std::pair<T0, T1>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename T0, typename T1>
   struct arg_from_python<std::pair<T0, T1>>:
-    detail::pair_copied_from_python<std::pair<T0, T1>>
+    stdcon::pair_copied_from_python<std::pair<T0, T1>>
   {
-    typedef detail::pair_copied_from_python<std::pair<T0, T1>> base_type;
+    typedef stdcon::pair_copied_from_python<std::pair<T0, T1>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

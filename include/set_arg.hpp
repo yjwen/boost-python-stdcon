@@ -7,24 +7,24 @@
 namespace boost::python {
   template<typename Key, typename Compare, typename Alloc>
   struct arg_from_python<std::set<Key, Compare, Alloc> const&> :
-    detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
+    stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename Key, typename Compare, typename Alloc>
   struct arg_from_python<std::set<Key, Compare, Alloc> &&> :
-    detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
+    stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename Key, typename Compare, typename Alloc>
   struct arg_from_python<std::set<Key, Compare, Alloc>> :
-    detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
+    stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>>
   {
-    typedef detail::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
+    typedef stdcon::distinct_copied_from_python<std::set<Key, Compare, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

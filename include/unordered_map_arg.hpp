@@ -8,27 +8,27 @@ namespace boost::python {
   template<typename Key, typename Value, typename Hash,
            typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc> const &> :
-    detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
+    stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
   {
-    typedef detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename Key, typename Value, typename Hash,
            typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc> &&> :
-    detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
+    stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
   {
-    typedef detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
   template<typename Key, typename Value, typename Hash,
            typename Eq, typename Alloc>
   struct arg_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> :
-    detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
+    stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>>
   {
-    typedef detail::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
+    typedef stdcon::associative_copied_from_python<std::unordered_map<Key, Value, Hash, Eq, Alloc>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 

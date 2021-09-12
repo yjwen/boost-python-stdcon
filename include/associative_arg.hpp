@@ -4,7 +4,7 @@
 #include <Python.h>
 
 namespace boost::python {
-  namespace detail {
+  namespace stdcon {
     template<typename C>
     struct associative_copied_from_python
     {
@@ -50,7 +50,7 @@ namespace boost::python {
     private:
       PyObject *m_pyobj;
     };
-  } // of namespace detail
+  } // of namespace stdcon
 
   namespace converter {
     struct expecting_pydict

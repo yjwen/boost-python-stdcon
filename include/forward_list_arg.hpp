@@ -4,7 +4,7 @@
 #include <forward_list>
 
 namespace boost::python {
-  namespace detail {
+  namespace stdcon {
     template<typename C>
     struct forward_list_copied_from_python
     {
@@ -42,23 +42,23 @@ namespace boost::python {
 
   template<typename T, typename A>
   struct arg_from_python<std::forward_list<T, A> const &> :
-    detail::forward_list_copied_from_python<std::forward_list<T, A>>
+    stdcon::forward_list_copied_from_python<std::forward_list<T, A>>
   {
-    typedef detail::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
+    typedef stdcon::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename T, typename A>
   struct arg_from_python<std::forward_list<T, A> &&> :
-    detail::forward_list_copied_from_python<std::forward_list<T, A>>
+    stdcon::forward_list_copied_from_python<std::forward_list<T, A>>
   {
-    typedef detail::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
+    typedef stdcon::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
   template<typename T, typename A>
   struct arg_from_python<std::forward_list<T, A>> :
-    detail::forward_list_copied_from_python<std::forward_list<T, A>>
+    stdcon::forward_list_copied_from_python<std::forward_list<T, A>>
   {
-    typedef detail::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
+    typedef stdcon::forward_list_copied_from_python<std::forward_list<T, A>> base_type;
     arg_from_python(PyObject *pyobj) : base_type(pyobj) {}
   };
 
