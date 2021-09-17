@@ -97,4 +97,7 @@ BOOST_PYTHON_MODULE(stdcon) {
 
   void def_17();
   def_17();
+
+  void def_mixed();
+  def_mixed();
 }

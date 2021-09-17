@@ -96,24 +96,75 @@
   | ~tuple~         | ~tuple~                                               | ~tuple_arg.hpp~         |
   | ~optional~      | Counterpart types or None                             | ~optional_arg.hpp~      |
   | ~variant~       | Counterpart of any of the variant's alternative types | ~variant_arg.hpp~       |
-** Restriction on Copy-Only Semantic
+** Restriction on Rvalues
 
    The argument conversion is done by creating temporary C++ container
    object and COPYING each element of Python container to that
    temporary C++ object. That means any change to the container itself
    in C++ side is discarded and cannot affect the original Python
-   container. To reflect the Copy-Only Semantic, the conversion is
-   restricted to container value type, constant reference type and
-   rvalue reference type. The following code shows some example of
+   container. To reflect such semantic, the conversion is restricted
+   to rvalue types as container value type, constant reference type
+   and rvalue reference type. The following code shows some example of
    acceptable arguments.
 
    #+begin_src c++
      void foo_0(std::vector<int> v); // A vector value, convertible
      void foo_1(std::vector<int> const &v); // Constant reference to a
                                             // vector, convertible
-     void foo_2(std::vector<int> &&v); // Rvalue reference to a vector,
+     void foo_2(std::vector<int> &&v); // rvalue reference to a vector,
                                        // convertible
 
-     void foo_3(std::vector<int> &v); // Reference to a vector, NOT
-                                      // convertible
+     void foo_3(std::vector<int> &v); // Reference to a vector, a lvalue
+                                      // type, NOT convertible
+   #+end_src
+
+** Effective Range
+
+   In short, once an /*_arg.hpp*/ file is included, it forces all
+   arguments of its type of all registered functions to be expecting
+   the corresponding Python containers, regardless whether the
+   argument type has been registered as Python extended class, in the
+   whole current compilation unit(the current C++ code file).
+
+   The reason is, boost-python-stdcon embeds the auto-conversion
+   logics into boost.python by adding template specializations to its
+   meta-functions. Such specializations preempt boost.python's default
+   behavior on extended classes and are effective in the current
+   compilation unit. However, boost-python-stdcon doesn't preempt
+   those arguments of lvalues (a non-const reference or pointer)
+   which are still registered to accept Python extended classes. The
+   following code is an demostration of feasible mixing of
+   auto-converted arguments with extended classes.
+
+   #+begin_src c++
+     #include <list>
+     #include <vector_arg.hpp>
+
+     using namespace std;
+     namespace py = boost::python;
+
+     template<typename SEQ>
+     size_t seq_size(SEQ v){return v.size();}
+
+     void def_mixed()
+     {
+       py::class_<vector<float>>("float_vector");
+       py::class_<list<float>>("float_list");
+
+       // These two functions are both registered as accepting
+       // Python list, even if vector<float> is already registered as a Python
+       // extension class, due to the included file <vector_arg.hpp>
+       py::def("int_vector_size", &seq_size<vector<int>>);
+       py::def("float_vector_size", &seq_size<vector<float>>);
+
+       // However, this function is registered as accepting the Python
+       // extension class of type vector<float>, as its argument is of
+       // lvalue type that is not overwritten by boost-std-con
+       py::def("float_vector_size_lvalue", &seq_size<vector<float>&>);
+
+       // This function is also registered as accepting the Python
+       // extension class of type list<float>, unless <list_arg.hpp> is
+       // included
+       py::def("float_list_size", &seq_size<list<float>>);
+     }
    #+end_src

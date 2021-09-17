@@ -45,5 +45,21 @@ assert c.is_none_cref(2) == False
 assert c.var_index(1) == 0
 assert c.var_index_cref('c') == 1
 assert c.var_index_rvalue(2.3) == 2
+
+assert c.int_vector_size([1, 2, 3]) == 3
+assert c.float_vector_size([1.2, 3.4, 5.6]) == 3
+
+c_float_vector = c.float_vector()
+try:
+    c.float_vector_size(c_float_vector)
+except:
+    caught = True
+assert caught == True
+
+assert c.float_vector_size_lvalue(c_float_vector) == 0
+
+c_float_list = c.float_list()
+assert c.float_list_size(c_float_list) == 0
+
 print("Passed")
 
