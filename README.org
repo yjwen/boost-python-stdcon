@@ -168,3 +168,35 @@
        py::def("float_list_size", &seq_size<list<float>>);
      }
    #+end_src
+
+** Combined Conversion
+
+   Combined containers and data structures are also supported by
+   including header files of all the used container and data structure
+   types. For example, to convert argument of type
+   ~std::vector<std::pair<int, float>>~, including ~<vector_arg.hpp>~
+   and ~<pair_arg.hpp>~ would be sufficient. The following code shows
+   more examples.
+   #+begin_src c++
+     #include <vector_arg.hpp>
+     #include <pair_arg.hpp>
+
+     using namespace std;
+     namespace py = boost::python;
+
+     int first_at(vector<pair<int, float>> const &v, size_t idx)
+     {
+       return v[idx].first;
+     }
+
+     int size_of_first(pair<vector<int>, float> const &v)
+     {
+       return v.first.size();
+     }
+
+     void def_combined()
+     {
+       py::def("first_at", &first_at);
+       py::def("size_of_first", &size_of_first);
+     }
+   #+end_src

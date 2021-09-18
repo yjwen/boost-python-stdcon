@@ -14,7 +14,9 @@ stdcon17.o: CXXFLAGS += -std=c++17
 
 mixed.o: mixed.cpp ../include/vector_arg.hpp
 
-stdcon.so: stdcon.o stdcon17.o mixed.o
+combined.o: combined.cpp ../include/vector_arg.hpp ../include/pair_arg.hpp
+
+stdcon.so: stdcon.o stdcon17.o mixed.o combined.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 test: stdcon.so test.py

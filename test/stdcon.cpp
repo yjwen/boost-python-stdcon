@@ -100,4 +100,7 @@ BOOST_PYTHON_MODULE(stdcon) {
 
   void def_mixed();
   def_mixed();
+
+  void def_combined();
+  def_combined();
 }

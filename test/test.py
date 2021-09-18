@@ -61,5 +61,7 @@ assert c.float_vector_size_lvalue(c_float_vector) == 0
 c_float_list = c.float_list()
 assert c.float_list_size(c_float_list) == 0
 
+assert c.first_at([(1, 1.5), (2, 2.5)], 1) == 2
+assert c.size_of_first(([1, 2], 3.0)) == 2
 print("Passed")
 
