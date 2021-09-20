@@ -103,4 +103,7 @@ BOOST_PYTHON_MODULE(stdcon) {
 
   void def_combined();
   def_combined();
+
+  void def_return_value();
+  def_return_value();
 }

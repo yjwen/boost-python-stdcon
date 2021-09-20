@@ -82,6 +82,8 @@
   arguments, please include the proper header file listed in the table
   below.
 
+  #+NAME: ConvertionTable
+  #+CAPTION: Convertion Table
   | C++ Container   | Expecting                                             | Header file for         |
   |                 | Python object type                                    | argument conversion     |
   |-----------------+-------------------------------------------------------+-------------------------|
@@ -200,3 +202,62 @@
        py::def("size_of_first", &size_of_first);
      }
    #+end_src
+
+* Return Value Conversion
+
+  boost-python-stdcon provides a boost.python CallPolicy class
+  template ~copy_return_value~ (defined in ~<copy_return_value.hpp>~)
+  that enable automatic copying of function return values of standard
+  container and data structure type to corrresponding python data
+  structures. It follows boost.python's suggestion to support policy
+  chaining by providing other policies as its template argument. Its
+  definition is as:
+  #+begin_src c++
+    template<typename Base = default_call_policies>
+    struct copy_return_value : Base
+    {
+      typedef copy_return_value_dispatcher<Base> result_converter;
+    };
+  #+end_src
+
+  As the name indicates, ~copy_return_value~ copies the elements a
+  return value holds to a new Python data structure and returns. It
+  supports the conversion in [[ConvertionTable]]. However, support for the
+  following containers are not done yet.
+
+  * ~map~
+  * ~set~
+  * ~pair~
+  * ~tuple~
+  * ~optional~
+  * ~variant~
+
+  Just like argument
+  conversion, return value conversion supports rvalue types only,
+  which includes value types and constant references. The example
+  below show its usage.
+
+  #+begin_src c++
+    #include <copy_return_value.hpp>
+
+    template<typename Seq>
+    Seq make_seq(size_t sz)
+    {
+      Seq seq;
+      for (size_t i = 0; i < sz; ++i) {
+        seq.push_back(i);
+      }
+      return seq;
+    }
+
+    void def_return_value() {
+      py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
+    }
+  #+end_src
+
+** Effective Range
+
+   Unlike argument conversion, return value conversion is specified as
+   callpolicy at registering specific function. Auto-coverted
+   functions can be mixed with those returning registered extension
+   classes without conflicts.

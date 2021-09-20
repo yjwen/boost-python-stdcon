@@ -63,5 +63,18 @@ assert c.float_list_size(c_float_list) == 0
 
 assert c.first_at([(1, 1.5), (2, 2.5)], 1) == 2
 assert c.size_of_first(([1, 2], 3.0)) == 2
+
+assert c.make_vec(3) == [0, 1, 2]
+assert c.vec_append_return(1) == [1]
+assert c.vec_append_return(2) == [1, 2]
+
+assert c.make_list(3) == [0, 1, 2]
+assert c.list_append_return(3) == [3]
+assert c.list_append_return(4) == [3, 4]
+
+assert c.make_flist(3) == [2, 1, 0]
+assert c.flist_append_return(5) == [5]
+assert c.flist_append_return(6) == [6, 5]
+
 print("Passed")
 
