@@ -29,6 +29,24 @@ Seq const & append_return(typename Seq::value_type v)
   return seq;
 }
 
+template<typename Set>
+Set make_set(size_t sz)
+{
+  Set s;
+  for (size_t i = 0; i < sz; ++i) {
+    s.insert(i);
+  }
+  return s;
+}
+
+template<typename Set>
+Set const & insert_return(typename Set::value_type v)
+{
+  static Set s;
+  s.insert(v);
+  return s;
+}
+
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
   py::def("vec_append_return", &append_return<vector<int>>, py::copy_return_value<>());
@@ -38,5 +56,12 @@ void def_return_value() {
 
   py::def("make_flist", &make_seq<forward_list<int>, false>, py::copy_return_value<>());
   py::def("flist_append_return", &append_return<forward_list<int>, false>, py::copy_return_value<>());
+
+  py::def("make_set", &make_set<set<int>>, py::copy_return_value<>());
+  py::def("set_insert_return", &insert_return<set<int>>, py::copy_return_value<>());
+
+  py::def("make_uset", &make_set<unordered_set<int>>, py::copy_return_value<>());
+  py::def("uset_insert_return", &insert_return<unordered_set<int>>, py::copy_return_value<>());
+
 }
 

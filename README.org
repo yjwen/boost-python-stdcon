@@ -220,22 +220,53 @@
     };
   #+end_src
 
+  The below code is an example of basic usage of ~copy_return_value~.
+  #+begin_src c++
+    #include <copy_return_value.hpp>
+    #include <vector>
+
+    using namespace std;
+    namespace py = boost::python;
+
+    vector<int> lift(int v)
+    {
+      vector<int> vec;
+      vec.push_back(v);
+      return vec;
+    }
+
+    void def_return_value()
+    {
+      py::def("lift", &lift, py::copy_return_value<>());
+    }
+  #+end_src
+
   As the name indicates, ~copy_return_value~ copies the elements a
-  return value holds to a new Python data structure and returns. It
-  supports the conversion in [[ConvertionTable]]. However, support for the
-  following containers are not done yet.
+  returned container or data structure holds to a new Python data
+  structure and returns.
+
+** Supported Containers and Data Structures
+  It supports the conversion in [[ConvertionTable]] with the following exceptions.
+
+  * ~multimap~ and ~multiset~ are not convertible as there is no
+    equivalent data structure in Python
+  * ~set~ and ~unordered_set~ are always converted to Python ~set~ at
+    now. If conversion to ~frozenset~ is indeed necessary, please file
+    an issue.
+
+  However, support for the following containers are not done yet.
 
   * ~map~
-  * ~set~
+  * ~unordered_map~
   * ~pair~
   * ~tuple~
   * ~optional~
   * ~variant~
 
-  Just like argument
-  conversion, return value conversion supports rvalue types only,
-  which includes value types and constant references. The example
-  below show its usage.
+** Effective Range
+  Just like argument conversion, return value conversion supports
+  rvalue types only, which includes value types and constant
+  references. The example below show its usage.
 
   #+begin_src c++
     #include <copy_return_value.hpp>

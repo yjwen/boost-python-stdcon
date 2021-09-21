@@ -10,18 +10,19 @@ namespace boost::python {
     struct copy_sequence_return_value
     {
       typedef typename V::value_type value_type;
-      typedef typename Gen::apply<value_type>::type converter_type;
+      typedef typename Gen::apply<value_type>::type value_converter_type;
 
       bool convertible() const {
-        // Convertible when V::value is convertible
-        return converter_type().convertible();
+        // Convertible when V::value_type is convertible
+        return value_converter_type().convertible();
       }
       typedef typename std::remove_reference<V>::type DerefV;
       typedef typename std::remove_cv<DerefV>::type BareV;
       PyObject* operator () (BareV const &vec) const {
         PyObject *pyobj = PyList_New(0);
+        value_converter_type value_converter;
         for (auto const &elem : vec)
-          PyList_Append(pyobj, converter_type()(elem));
+          PyList_Append(pyobj, value_converter(elem));
         return pyobj;
       }
 

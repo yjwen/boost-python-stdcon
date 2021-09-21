@@ -76,5 +76,13 @@ assert c.make_flist(3) == [2, 1, 0]
 assert c.flist_append_return(5) == [5]
 assert c.flist_append_return(6) == [6, 5]
 
+assert c.make_set(3) == {0, 1, 2}
+assert c.set_insert_return(4) == {4}
+assert c.set_insert_return(0) == {0, 4}
+
+assert c.make_uset(3) == {0, 1, 2}
+assert c.uset_insert_return(4) == {4}
+assert c.uset_insert_return(0) == {0, 4}
+
 print("Passed")
 

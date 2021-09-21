@@ -1,9 +1,12 @@
 #ifndef __BOOST_PYTHON_STDCON_COPY_RETURN_VALUE_INCLUDED__
 #define __BOOST_PYTHON_STDCON_COPY_RETURN_VALUE_INCLUDED__
 #include <copy_sequence_return_value.hpp>
+#include <copy_distinct_return_value.hpp>
 #include <vector>
 #include <list>
 #include <forward_list>
+#include <set>
+#include <unordered_set>
 
 namespace boost::python {
   template<typename Base>
@@ -45,6 +48,24 @@ namespace boost::python {
     template<typename T, typename A>
     struct apply<std::forward_list<T, A> const &> {
       typedef stdcon::copy_sequence_return_value<std::forward_list<T, A>, base_result_converter> type;
+    };
+
+    template<typename K, typename C, typename A>
+    struct apply<std::set<K, C, A>> {
+      typedef stdcon::copy_distinct_return_value<std::set<K, C, A>, base_result_converter> type;
+    };
+    template<typename K, typename C, typename A>
+    struct apply<std::set<K, C, A> const &> {
+      typedef stdcon::copy_distinct_return_value<std::set<K, C, A>, base_result_converter> type;
+    };
+
+    template<typename K, typename H, typename E, typename A>
+    struct apply<std::unordered_set<K, H, E, A>> {
+      typedef stdcon::copy_distinct_return_value<std::unordered_set<K, H, E, A>, base_result_converter> type;
+    };
+    template<typename K, typename H, typename E, typename A>
+    struct apply<std::unordered_set<K, H, E, A> const &> {
+      typedef stdcon::copy_distinct_return_value<std::unordered_set<K, H, E, A>, base_result_converter> type;
     };
   };
 
