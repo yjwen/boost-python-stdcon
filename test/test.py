@@ -84,5 +84,13 @@ assert c.make_uset(3) == {0, 1, 2}
 assert c.uset_insert_return(4) == {4}
 assert c.uset_insert_return(0) == {0, 4}
 
+assert c.make_map(1, '1') == {1: '1'}
+assert c.update_map(1, 'x') == {1: 'x'}
+assert c.update_map(1, 'y') == {1: 'y'}
+
+assert c.make_umap(2, '2') == {2: '2'}
+assert c.update_umap(3, 'x') == {3: 'x'}
+assert c.update_umap(3, 'y') == {3: 'y'}
+
 print("Passed")
 

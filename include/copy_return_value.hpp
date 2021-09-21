@@ -2,11 +2,14 @@
 #define __BOOST_PYTHON_STDCON_COPY_RETURN_VALUE_INCLUDED__
 #include <copy_sequence_return_value.hpp>
 #include <copy_distinct_return_value.hpp>
+#include <copy_associative_return_value.hpp>
 #include <vector>
 #include <list>
 #include <forward_list>
 #include <set>
 #include <unordered_set>
+#include <map>
+#include <unordered_map>
 
 namespace boost::python {
   template<typename Base>
@@ -66,6 +69,25 @@ namespace boost::python {
     template<typename K, typename H, typename E, typename A>
     struct apply<std::unordered_set<K, H, E, A> const &> {
       typedef stdcon::copy_distinct_return_value<std::unordered_set<K, H, E, A>, base_result_converter> type;
+    };
+
+    template<typename K, typename T, typename C, typename A>
+    struct apply<std::map<K, T, C, A>> {
+      typedef stdcon::copy_associative_return_value<std::map<K, T, C, A>, base_result_converter> type;
+    };
+    template<typename K, typename T, typename C, typename A>
+    struct apply<std::map<K, T, C, A> const &> {
+      typedef stdcon::copy_associative_return_value<std::map<K, T, C, A>, base_result_converter> type;
+    };
+
+    template<typename K, typename T, typename H, typename E, typename A>
+    struct apply<std::unordered_map<K, T, H, E, A>> {
+      typedef stdcon::copy_associative_return_value<std::unordered_map<K, T, H, E, A>, base_result_converter> type;
+    };
+
+    template<typename K, typename T, typename H, typename E, typename A>
+    struct apply<std::unordered_map<K, T, H, E, A> const &> {
+      typedef stdcon::copy_associative_return_value<std::unordered_map<K, T, H, E, A>, base_result_converter> type;
     };
   };
 

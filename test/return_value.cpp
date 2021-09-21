@@ -47,6 +47,23 @@ Set const & insert_return(typename Set::value_type v)
   return s;
 }
 
+template<typename Map>
+Map make_map(typename Map::key_type k, typename Map::mapped_type v)
+{
+  Map m;
+  m[k] = v;
+  return m;
+}
+
+template<typename Map>
+Map const & update_map(typename Map::key_type k, typename Map::mapped_type v)
+{
+  static Map m;
+  m[k] =v;
+  return m;
+}
+
+
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
   py::def("vec_append_return", &append_return<vector<int>>, py::copy_return_value<>());
@@ -62,6 +79,12 @@ void def_return_value() {
 
   py::def("make_uset", &make_set<unordered_set<int>>, py::copy_return_value<>());
   py::def("uset_insert_return", &insert_return<unordered_set<int>>, py::copy_return_value<>());
+
+  py::def("make_map", &make_map<map<int, char>>, py::copy_return_value<>());
+  py::def("update_map", &make_map<map<int, char>>, py::copy_return_value<>());
+
+  py::def("make_umap", &make_map<unordered_map<int, char>>, py::copy_return_value<>());
+  py::def("update_umap", &make_map<unordered_map<int, char>>, py::copy_return_value<>());
 
 }
 
