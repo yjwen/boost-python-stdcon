@@ -256,10 +256,6 @@
 
   However, support for the following containers are not done yet.
 
-  * ~map~
-  * ~unordered_map~
-  * ~pair~
-  * ~tuple~
   * ~optional~
   * ~variant~
 

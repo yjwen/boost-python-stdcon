@@ -92,5 +92,11 @@ assert c.make_umap(2, '2') == {2: '2'}
 assert c.update_umap(3, 'x') == {3: 'x'}
 assert c.update_umap(3, 'y') == {3: 'y'}
 
+assert c.make_pair(1, '1') == (1, '1')
+assert c.update_pair(2, '2') == (2, '2')
+
+assert c.make_tuple(1, 1.5, '2') == (1, 1.5, '2')
+assert c.update_tuple(2, 2.5, 'c') == (2, 2.5, 'c')
+
 print("Passed")
 

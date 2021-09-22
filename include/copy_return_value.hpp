@@ -3,6 +3,8 @@
 #include <copy_sequence_return_value.hpp>
 #include <copy_distinct_return_value.hpp>
 #include <copy_associative_return_value.hpp>
+#include <copy_pair_return_value.hpp>
+#include <copy_tuple_return_value.hpp>
 #include <vector>
 #include <list>
 #include <forward_list>
@@ -10,6 +12,7 @@
 #include <unordered_set>
 #include <map>
 #include <unordered_map>
+#include <tuple>
 
 namespace boost::python {
   template<typename Base>
@@ -88,6 +91,26 @@ namespace boost::python {
     template<typename K, typename T, typename H, typename E, typename A>
     struct apply<std::unordered_map<K, T, H, E, A> const &> {
       typedef stdcon::copy_associative_return_value<std::unordered_map<K, T, H, E, A>, base_result_converter> type;
+    };
+
+    template<typename T0, typename T1>
+    struct apply<std::pair<T0, T1> const &> {
+      typedef stdcon::copy_pair_return_value<std::pair<T0, T1>, base_result_converter> type;
+    };
+
+    template<typename T0, typename T1>
+    struct apply<std::pair<T0, T1>> {
+      typedef stdcon::copy_pair_return_value<std::pair<T0, T1>, base_result_converter> type;
+    };
+
+    template<typename...Ts>
+    struct apply<std::tuple<Ts...> const &> {
+      typedef stdcon::copy_tuple_return_value<std::tuple<Ts...>, base_result_converter> type;
+    };
+
+    template<typename...Ts>
+    struct apply<std::tuple<Ts...>> {
+      typedef stdcon::copy_tuple_return_value<std::tuple<Ts...>, base_result_converter> type;
     };
   };
 

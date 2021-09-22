@@ -63,6 +63,40 @@ Map const & update_map(typename Map::key_type k, typename Map::mapped_type v)
   return m;
 }
 
+template<typename Pair>
+Pair make_pair(typename Pair::first_type first, typename Pair::second_type second)
+{
+  return Pair(first, second);
+}
+
+template<typename Pair>
+Pair const &update_pair(typename Pair::first_type first, typename Pair::second_type second)
+{
+  static Pair pair;
+  pair.first = first;
+  pair.second = second;
+  return pair;
+}
+
+template<typename Tuple>
+Tuple _make_tuple(typename std::tuple_element<0, Tuple>::type v0,
+                  typename std::tuple_element<1, Tuple>::type v1,
+                  typename std::tuple_element<2, Tuple>::type v2)
+{
+  return Tuple(v0, v1, v2);
+}
+
+template<typename Tuple>
+Tuple const &update_tuple(typename std::tuple_element<0, Tuple>::type v0,
+                          typename std::tuple_element<1, Tuple>::type v1,
+                          typename std::tuple_element<2, Tuple>::type v2)
+{
+  static Tuple tuple;
+  std::get<0>(tuple) = v0;
+  std::get<1>(tuple) = v1;
+  std::get<2>(tuple) = v2;
+  return tuple;
+}
 
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
@@ -86,5 +120,10 @@ void def_return_value() {
   py::def("make_umap", &make_map<unordered_map<int, char>>, py::copy_return_value<>());
   py::def("update_umap", &make_map<unordered_map<int, char>>, py::copy_return_value<>());
 
+  py::def("make_pair", &make_pair<pair<int, char>>, py::copy_return_value<>());
+  py::def("update_pair", &update_pair<pair<int, char>>, py::copy_return_value<>());
+
+  py::def("make_tuple", &_make_tuple<tuple<int, float, char>>, py::copy_return_value<>());
+  py::def("update_tuple", &update_tuple<tuple<int, float, char>>, py::copy_return_value<>());
 }
 
