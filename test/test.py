@@ -98,5 +98,14 @@ assert c.update_pair(2, '2') == (2, '2')
 assert c.make_tuple(1, 1.5, '2') == (1, 1.5, '2')
 assert c.update_tuple(2, 2.5, 'c') == (2, 2.5, 'c')
 
+assert c.make_optional(True) == 1
+ref_pre = c.get_none_refcnt()
+none = c.make_optional(False)
+ref_post = c.get_none_refcnt()
+assert none is None
+assert ref_post == ref_pre + 1, 'ref_post={}, ref_pre={}'.format(ref_post, ref_pre)
+assert c.update_optional(True) == 1
+assert c.update_optional(False) is None
+
 print("Passed")
 

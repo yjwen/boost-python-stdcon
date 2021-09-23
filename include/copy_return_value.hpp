@@ -5,6 +5,7 @@
 #include <copy_associative_return_value.hpp>
 #include <copy_pair_return_value.hpp>
 #include <copy_tuple_return_value.hpp>
+#include <copy_optional_return_value.hpp>
 #include <vector>
 #include <list>
 #include <forward_list>
@@ -13,6 +14,7 @@
 #include <map>
 #include <unordered_map>
 #include <tuple>
+#include <optional>
 
 namespace boost::python {
   template<typename Base>
@@ -111,6 +113,17 @@ namespace boost::python {
     template<typename...Ts>
     struct apply<std::tuple<Ts...>> {
       typedef stdcon::copy_tuple_return_value<std::tuple<Ts...>, base_result_converter> type;
+    };
+
+
+    template<typename T>
+    struct apply<std::optional<T> const&> {
+      typedef stdcon::copy_optional_return_value<std::optional<T>, base_result_converter> type;
+    };
+
+    template<typename T>
+    struct apply<std::optional<T>> {
+      typedef stdcon::copy_optional_return_value<std::optional<T>, base_result_converter> type;
     };
   };
 

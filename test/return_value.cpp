@@ -98,6 +98,25 @@ Tuple const &update_tuple(typename std::tuple_element<0, Tuple>::type v0,
   return tuple;
 }
 
+optional<int> _make_optional(bool b)
+{
+  if (b) return 1;
+  else return nullopt;
+}
+
+optional<int> const & update_optional(bool b)
+{
+  static optional<int> o;
+  if (b) o = 1;
+  else o = nullopt;
+  return o;
+}
+
+size_t get_none_refcnt()
+{
+  return _Py_NoneStruct.ob_refcnt;
+}
+
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
   py::def("vec_append_return", &append_return<vector<int>>, py::copy_return_value<>());
@@ -125,5 +144,10 @@ void def_return_value() {
 
   py::def("make_tuple", &_make_tuple<tuple<int, float, char>>, py::copy_return_value<>());
   py::def("update_tuple", &update_tuple<tuple<int, float, char>>, py::copy_return_value<>());
+
+  py::def("make_optional", &_make_optional, py::copy_return_value<>());
+  py::def("update_optional", &update_optional, py::copy_return_value<>());
+
+  py::def("get_none_refcnt", &get_none_refcnt);
 }
 
