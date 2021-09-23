@@ -256,10 +256,9 @@
 
   However, support for the following containers are not done yet.
 
-  * ~optional~
   * ~variant~
 
-** Effective Range
+** Restriction on Rvalues
   Just like argument conversion, return value conversion supports
   rvalue types only, which includes value types and constant
   references. The example below show its usage.
@@ -267,18 +266,31 @@
   #+begin_src c++
     #include <copy_return_value.hpp>
 
-    template<typename Seq>
-    Seq make_seq(size_t sz)
+    using namespace std;
+    namespace py = boost::python;
+
+    typedef vector<int> ivector;
+
+    ivector make_vec(size_t sz)
     {
-      Seq seq;
+      ivector vec;
       for (size_t i = 0; i < sz; ++i) {
-        seq.push_back(i);
+        vec.push_back(i);
       }
-      return seq;
+      return vec;
     }
 
+    ivector const & update_vec(int v)
+    {
+      static ivector vec;
+      vec.push_back(v);
+      return vec;
+    }
+
+
     void def_return_value() {
-      py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
+      py::def("make_vec", &make_vec, py::copy_return_value<>());
+      py::def("update_vec", &update_vec, py::copy_return_value<>());
     }
   #+end_src
 
