@@ -1,7 +1,6 @@
 #ifndef __BOOST_PYTHON_STDCON_COPY_OPTIONAL_RETURN_VALUE_INCLUDED__
 #define __BOOST_PYTHON_STDCON_COPY_OPTIONAL_RETURN_VALUE_INCLUDED__
 
-#include <optional>
 namespace boost::python {
   namespace stdcon {
     template<typename O, typename Gen>

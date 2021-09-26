@@ -117,6 +117,23 @@ size_t get_none_refcnt()
   return _Py_NoneStruct.ob_refcnt;
 }
 
+typedef variant<int, char> int_or_char;
+
+template<typename T>
+int_or_char assign_variant(T i)
+{
+  return i;
+}
+
+int_or_char var;
+
+template<typename T>
+int_or_char const & update_variant(T i)
+{
+  var = i;
+  return var;
+}
+
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
   py::def("vec_append_return", &append_return<vector<int>>, py::copy_return_value<>());
@@ -149,5 +166,11 @@ void def_return_value() {
   py::def("update_optional", &update_optional, py::copy_return_value<>());
 
   py::def("get_none_refcnt", &get_none_refcnt);
+
+  py::def("assign_int_to_var", &assign_variant<int>, py::copy_return_value<>());
+  py::def("assign_char_to_var", &assign_variant<char>, py::copy_return_value<>());
+
+  py::def("update_var_by_int", &update_variant<int>, py::copy_return_value<>());
+  py::def("update_var_by_char", &update_variant<char>, py::copy_return_value<>());
 }
 

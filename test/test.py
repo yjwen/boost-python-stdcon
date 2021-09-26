@@ -107,5 +107,10 @@ assert ref_post == ref_pre + 1, 'ref_post={}, ref_pre={}'.format(ref_post, ref_p
 assert c.update_optional(True) == 1
 assert c.update_optional(False) is None
 
+assert c.assign_int_to_var(1) == 1
+assert c.assign_char_to_var('c') == 'c'
+assert c.update_var_by_int(2) == 2
+assert c.update_var_by_char('d') == 'd'
+
 print("Passed")
 

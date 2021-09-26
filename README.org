@@ -254,10 +254,6 @@
     now. If conversion to ~frozenset~ is indeed necessary, please file
     an issue.
 
-  However, support for the following containers are not done yet.
-
-  * ~variant~
-
 ** Restriction on Rvalues
   Just like argument conversion, return value conversion supports
   rvalue types only, which includes value types and constant
