@@ -134,6 +134,18 @@ int_or_char const & update_variant(T i)
   return var;
 }
 
+optional<vector<pair<int, int>>> return_combined(size_t sz)
+{
+  if (sz > 0) {
+    vector<pair<int, int>> vec;
+    for (size_t i = 0; i < sz; ++i)
+      vec.emplace_back(i, i);
+    return vec;
+  } else {
+    return nullopt;
+  }
+}
+
 void def_return_value() {
   py::def("make_vec", &make_seq<vector<int>>, py::copy_return_value<>());
   py::def("vec_append_return", &append_return<vector<int>>, py::copy_return_value<>());
@@ -172,5 +184,7 @@ void def_return_value() {
 
   py::def("update_var_by_int", &update_variant<int>, py::copy_return_value<>());
   py::def("update_var_by_char", &update_variant<char>, py::copy_return_value<>());
+
+  py::def("return_combined", &return_combined, py::copy_return_value<>());
 }
 

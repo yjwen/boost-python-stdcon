@@ -6,7 +6,7 @@ LDFLAGS += -lboost_python39 -shared
 HEADERS = $(wildcard ../include/*.hpp)
 C17-HEADER-FILES = tuple_arg.hpp optional_arg.hpp variant_arg.hpp
 C17-HEADERS = $(C17-HEADER-FILES:%=../include/%)
-RETURN-HEADERS = $(wildcard ../include/*return_value.hpp)
+RETURN-HEADERS = $(wildcard ../include/*return_value.hpp) ../include/copy_return_value_dispatcher.hpp
 C11-HEADERS = $(filter-out $(C17-HEADERS) $(RETURN-HEADERS),$(HEADERS))
 stdcon.o: stdcon.cpp $(C11-HEADERS)
 

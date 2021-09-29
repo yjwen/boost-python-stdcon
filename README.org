@@ -296,3 +296,31 @@
    callpolicy at registering specific function. Auto-coverted
    functions can be mixed with those returning registered extension
    classes without conflicts.
+
+   
+** Combined Conversion
+
+   Combined types of standard containers and data structures are also
+   supported, without any extra setup, as the following example shows.
+
+   #+begin_src c++
+     #include <copy_return_value.hpp>
+     using namespace std;
+     namespace py = boost::python;
+
+     optional<vector<pair<int, int>>> return_combined(size_t sz)
+     {
+       if (sz > 0) {
+         vector<pair<int, int>> vec;
+         for (size_t i = 0; i < sz; ++i)
+           vec.emplace_back(i, i);
+         return vec;
+       } else {
+         return nullopt;
+       }
+     }
+
+     void def_return_value() {
+       py::def("return_combined", &return_combined, py::copy_return_value<>());
+     }
+   #+end_src

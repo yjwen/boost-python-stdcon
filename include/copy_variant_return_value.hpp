@@ -1,6 +1,6 @@
 #ifndef __BOOST_PYTHON_STDCON_COPY_VARIANT_RETURN_VALUE_INCLUDED__
 #define __BOOST_PYTHON_STDCON_COPY_VARIANT_RETURN_VALUE_INCLUDED__
-
+#include <copy_return_value_dispatcher.hpp>
 #include <variant>
 
 namespace boost::python {

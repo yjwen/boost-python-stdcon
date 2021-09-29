@@ -112,5 +112,7 @@ assert c.assign_char_to_var('c') == 'c'
 assert c.update_var_by_int(2) == 2
 assert c.update_var_by_char('d') == 'd'
 
+assert c.return_combined(0) is None
+assert c.return_combined(2) == [(0, 0), (1, 1)]
 print("Passed")
 
